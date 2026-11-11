@@ -159,32 +159,39 @@ export const SettingsPage: React.FC = () => {
             <span>{t.settings.theme}</span>
           </div>
 
-          <div className="grid grid-cols-2 gap-3">
-            <button
-              type="button"
-              onClick={() => setTheme('dark')}
-              className={`p-3 rounded-xl text-xs font-semibold border transition-all text-left ${
-                theme === 'dark'
-                  ? 'bg-sky-500/20 border-sky-500 text-white shadow-md'
-                  : 'bg-slate-800/60 border-slate-700/60 text-slate-300 hover:bg-slate-800'
-              }`}
-            >
-              <div className="font-bold">{t.settings.dark}</div>
-              <div className="text-[10px] text-slate-400 mt-0.5">Weather-inspired deep navy contrast</div>
-            </button>
-
-            <button
-              type="button"
-              onClick={() => setTheme('light')}
-              className={`p-3 rounded-xl text-xs font-semibold border transition-all text-left ${
-                theme === 'light'
-                  ? 'bg-sky-500/20 border-sky-500 text-white shadow-md'
-                  : 'bg-slate-800/60 border-slate-700/60 text-slate-300 hover:bg-slate-800'
-              }`}
-            >
-              <div className="font-bold">{t.settings.light}</div>
-              <div className="text-[10px] text-slate-400 mt-0.5">Clean high-contrast daylight theme</div>
-            </button>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            {[
+              { id: 'system' as const, label: t.settings.system, desc: 'Follow your device preference' },
+              { id: 'light' as const, label: t.settings.light, desc: 'Clean high-contrast daylight theme' },
+              { id: 'dark' as const, label: t.settings.dark, desc: 'Weather-inspired deep navy contrast' },
+            ].map((option) => (
+              <button
+                key={option.id}
+                type="button"
+                onClick={() => setTheme(option.id)}
+                aria-pressed={theme === option.id}
+                className={`theme-option p-3 rounded-xl text-xs font-semibold border transition-all text-left ${
+                  theme === option.id
+                    ? 'bg-sky-500/20 border-sky-500 text-white shadow-md'
+                    : 'bg-slate-800/60 border-slate-700/60 text-slate-300 hover:bg-slate-800'
+                }`}
+              >
+                <div className="theme-preview" aria-hidden="true">
+                  <div className="theme-preview-window">
+                    <span />
+                    <span />
+                    <span />
+                  </div>
+                  <div className="theme-preview-window theme-preview-window-accent">
+                    <span />
+                    <span />
+                    <span />
+                  </div>
+                </div>
+                <div className="font-bold mt-2">{option.label}</div>
+                <div className="text-[10px] text-slate-400 mt-0.5">{option.desc}</div>
+              </button>
+            ))}
           </div>
         </div>
 

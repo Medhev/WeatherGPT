@@ -89,6 +89,7 @@ export interface TranslationDictionary {
     theme: string;
     dark: string;
     light: string;
+    system: string;
     savePreferences: string;
     savedSuccess: string;
   };
@@ -184,6 +185,7 @@ export const translations: Record<Language, TranslationDictionary> = {
       theme: "Display Theme",
       dark: "Dark Mode",
       light: "Light Mode",
+      system: "System",
       savePreferences: "Save Preferences",
       savedSuccess: "Settings saved successfully!",
     },
@@ -278,6 +280,7 @@ export const translations: Record<Language, TranslationDictionary> = {
       theme: "வண்ண தீம்",
       dark: "இருண்ட பயன்முறை (Dark)",
       light: "ஒளிரும் பயன்முறை (Light)",
+      system: "கணினி அமைப்பு",
       savePreferences: "அமைப்புகளைச் சேமிக்கவும்",
       savedSuccess: "அமைப்புகள் வெற்றிகரமாகச் சேமிக்கப்பட்டன!",
     },
@@ -372,6 +375,7 @@ export const translations: Record<Language, TranslationDictionary> = {
       theme: "थीम",
       dark: "डार्क मोड",
       light: "लाइट मोड",
+      system: "सिस्टम",
       savePreferences: "सेटिंग्स सहेजें",
       savedSuccess: "सेटिंग्स सफलतापूर्वक सहेजी गईं!",
     },

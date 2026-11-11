@@ -8,6 +8,70 @@
   }
 }
 
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+html.light body {
+  background: #f8fafc;
+  color: #0f172a;
+}
+
+html.light .bg-slate-900 {
+  background-color: #f8fafc;
+}
+
+html.light .bg-slate-900\/60 {
+  background-color: rgba(248, 250, 252, 0.8);
+}
+
+html.light .bg-slate-900\/90 {
+  background-color: rgba(248, 250, 252, 0.9);
+}
+
+html.light .bg-slate-800,
+html.light .bg-slate-800\/60,
+html.light .bg-slate-800\/80 {
+  background-color: #ffffff;
+}
+
+html.light .bg-slate-800\/40 {
+  background-color: rgba(226, 232, 240, 0.55);
+}
+
+html.light .text-slate-100,
+html.light .text-slate-200,
+html.light .text-white {
+  color: #0f172a;
+}
+
+html.light .text-slate-300 {
+  color: #334155;
+}
+
+html.light .text-slate-400 {
+  color: #64748b;
+}
+
+html.light .text-slate-500 {
+  color: #94a3b8;
+}
+
+html.light .border-slate-800,
+html.light .border-slate-700,
+html.light .border-slate-700\/50,
+html.light .border-slate-700\/60 {
+  border-color: #e2e8f0;
+}
+
+html.light .hover\:bg-slate-800:hover,
+html.light .hover\:bg-slate-800\/60:hover,
+html.light .hover\:bg-slate-700:hover {
+  background-color: #f1f5f9;
+}
+
 /* Glassmorphism cards */
 .glass-card {
   background: rgba(30, 41, 59, 0.7);
@@ -21,6 +85,51 @@
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+.theme-preview {
+  display: flex;
+  height: 58px;
+  overflow: hidden;
+  border-radius: 9px;
+  border: 1px solid rgba(148, 163, 184, 0.45);
+  background: #f8fafc;
+}
+
+.theme-preview-window {
+  flex: 1;
+  margin: 6px 3px 6px 6px;
+  padding: 7px 5px;
+  border-radius: 5px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+}
+
+.theme-preview-window-accent {
+  margin: 6px 6px 6px 3px;
+  background: #1e293b;
+  border-color: #334155;
+}
+
+.theme-preview-window span {
+  display: block;
+  height: 3px;
+  margin-bottom: 5px;
+  border-radius: 3px;
+  background: #cbd5e1;
+}
+
+.theme-preview-window span:first-child {
+  width: 75%;
+  background: #60a5fa;
+}
+
+.theme-preview-window-accent span {
+  background: #64748b;
+}
+
+.theme-preview-window-accent span:first-child {
+  background: #93c5fd;
 }
 
 /* Custom subtle scrollbar */

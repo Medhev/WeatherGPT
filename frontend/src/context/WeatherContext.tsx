@@ -11,12 +11,12 @@ interface WeatherContextType {
   language: Language;
   tempUnit: 'celsius' | 'fahrenheit';
   windUnit: 'kmh' | 'ms' | 'mph';
-  theme: 'light' | 'dark';
+  theme: 'light' | 'dark' | 'system';
   t: TranslationDictionary;
   setLanguage: (lang: Language) => void;
   setTempUnit: (unit: 'celsius' | 'fahrenheit') => void;
   setWindUnit: (unit: 'kmh' | 'ms' | 'mph') => void;
-  setTheme: (theme: 'light' | 'dark') => void;
+  setTheme: (theme: 'light' | 'dark' | 'system') => void;
   fetchWeatherByCity: (cityName: string) => Promise<void>;
   fetchWeatherByCoords: (lat: number, lon: number, name?: string) => Promise<void>;
   formatTemp: (celsius: number) => string;
@@ -40,8 +40,11 @@ export const WeatherProvider: React.FC<{ children: React.ReactNode }> = ({ child
   const [windUnit, setWindUnitState] = useState<'kmh' | 'ms' | 'mph'>(
     (localStorage.getItem('weathergpt_wind_unit') as any) || 'kmh'
   );
-  const [theme, setThemeState] = useState<'light' | 'dark'>(
-    (localStorage.getItem('weathergpt_theme') as any) || 'dark'
+  const [theme, setThemeState] = useState<'light' | 'dark' | 'system'>(
+    (() => {
+      const storedTheme = localStorage.getItem('weathergpt_theme');
+      return storedTheme === 'light' || storedTheme === 'system' ? storedTheme : 'dark';
+    })()
   );
 
   const setLanguage = (lang: Language) => {
@@ -59,23 +62,28 @@ export const WeatherProvider: React.FC<{ children: React.ReactNode }> = ({ child
     localStorage.setItem('weathergpt_wind_unit', unit);
   };
 
-  const setTheme = (th: 'light' | 'dark') => {
+  const setTheme = (th: 'light' | 'dark' | 'system') => {
     setThemeState(th);
     localStorage.setItem('weathergpt_theme', th);
-    if (th === 'dark') {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
   };
 
-  // Sync dark class on mount
   useEffect(() => {
-    if (theme === 'dark') {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    const applyTheme = () => {
+      const isDark = theme === 'dark' || (theme === 'system' && mediaQuery.matches);
+      document.documentElement.classList.toggle('dark', isDark);
+      document.documentElement.classList.toggle('light', !isDark);
+      document.documentElement.dataset.theme = isDark ? 'dark' : 'light';
+    };
+
+    applyTheme();
+    if (theme === 'system') {
+      mediaQuery.addEventListener('change', applyTheme);
     }
+
+    return () => {
+      mediaQuery.removeEventListener('change', applyTheme);
+    };
   }, [theme]);
 
   const fetchWeatherByCity = async (cityName: string) => {
